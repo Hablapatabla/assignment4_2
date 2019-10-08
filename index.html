@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Joe's Hotdogs!</title>
+
+	<style></style>
+
+	<script>
+		var prices = {"dogs": 3.25, "fries": 2, "drinks": 1.5};
+		var order = new Array();
+
+		function extractData()
+		{
+			order = {"dogs": (document.getElementById('dogs').value), 
+					 "fries": (document.getElementById('fries').value),
+					 "drinks": (document.getElementById('drinks').value)};
+			
+			var dogs = parseInt(document.getElementById('dogs'), 10);
+			console.log(dogs);
+			processOrder();
+		}
+
+		function processOrder()
+		{
+			var total_pre = (prices["dogs"] * order["dogs"]) + (prices["fries"] * order["fries"]) + 
+							(prices["drinks"] * order["drinks"]);
+
+			var discount = 0;
+			if(total_pre >= 20) {
+				discount = total_pre * .1;
+				total_pre = total_pre - discount;
+			} 
+
+			var tax = (total_pre * .0625);
+			var total_post = ((total_pre + tax) - discount).toFixed(2);
+			alert("You ordered " + order["dogs"] + " hot dogs, " + order["fries"] + " fries, and "
+				  + order["drinks"] + " drinks. This runs up a subtotal of $" + total_pre 
+				  + ". You got a $" + discount + " discount, tax will be $" + (tax.toFixed(2)) + " and your final total will be $"
+				  + total_post);
+		}
+	</script>
+
+
+</head>
+
+<body>
+	<h1> Welcome to Joe's! What's your order? </h1>
+	<form>
+		<label>Hotdogs ($3.25 each)</label>
+		<input type="text" name="hotdogs" id="dogs">
+		<label>French Fries ($2.00 each)</label>
+		<input type="text" name="fries" id="fries">
+		<label>Drinks ($1.50 each)</label>
+		<input type="text" name="drinks" id="drinks">
+
+		<input type="button" value="Order!" name="submit" onclick="extractData()">
+	</form>
+
+</body>
+</html>
